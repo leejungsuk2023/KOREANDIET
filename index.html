@@ -7,20 +7,19 @@
     
     <!-- Facebook Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1234567890'); 
-    fbq('track', 'PageView');
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init','1816534509233210');   // ✅ 네 픽셀 ID
+    fbq('track','PageView');          // 페이지 진입 추적
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1"
-    /></noscript>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=1816534509233210&ev=PageView&noscript=1" />
+    </noscript>
     <!-- End Facebook Pixel Code -->
     
     <style>
@@ -215,6 +214,51 @@
                 window.open('https://lin.ee/SgkGwde', '_blank');
             }
         }, 10000);
+    </script>
+    
+    <!-- 🅱️ 바디 맨 아래 붙여넣기: Lead(리드) 트래킹 유틸 + 버튼/폼 바인딩 -->
+    <script>
+    /**
+     * ✅ 어떻게 동작하나?
+     * - trackLead(eventId): Lead 이벤트 전송. eventId를 같이 보내면 CAPI와 중복제거에 유리.
+     * - genEventId(): 브라우저에서 간단한 event_id 생성 (CAPI 도입 시 서버로도 동일 값 전달하면 dedup 가능)
+     * - 아래 바인딩 예시는:
+     *   1) id="lineButton" 링크 클릭 시 Lead 전송
+     *   2) id="leadForm"  폼 제출 시   Lead 전송
+     *   → 네가 쓰는 실제 엘리먼트 id에 맞춰 바꿔도 됨.
+     */
+
+    (function(){
+      function trackLead(eventId){
+        if (typeof window.fbq === 'function') {
+          if (eventId) {
+            fbq('track', 'Lead', {}, { eventID: eventId });
+          } else {
+            fbq('track', 'Lead');
+          }
+        }
+      }
+
+      function genEventId(){
+        return 'cid-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
+      }
+
+      // 1) LINE 버튼(또는 콜투액션 버튼) 클릭 시 Lead
+      var lineBtn = document.getElementById('lineButton'); // ← 너의 버튼 id에 맞게 사용
+      if (lineBtn) {
+        lineBtn.addEventListener('click', function(){
+          trackLead(genEventId());
+        });
+      }
+
+      // 2) 폼 제출 시 Lead
+      var leadForm = document.getElementById('leadForm'); // ← 너의 폼 id에 맞게 사용
+      if (leadForm) {
+        leadForm.addEventListener('submit', function(){
+          trackLead(genEventId());
+        });
+      }
+    })();
     </script>
 </body>
 </html>
