@@ -236,6 +236,8 @@
 
   async function sendLeadToServer(eventId) {
     try {
+      console.log('📨 sendLeadToServer() 시작, eventId:', eventId);
+      
       const email = (document.querySelector('input[name="email"]') || {}).value || '';
       const phone = (document.querySelector('input[name="phone"]') || {}).value || '';
 
@@ -249,25 +251,46 @@
         userAgent: navigator.userAgent
       };
 
-      await fetch('/api/lead', {
+      console.log('📋 전송할 payload:', payload);
+      console.log('🌐 /api/lead 요청 시작...');
+
+      const response = await fetch('/api/lead', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(payload),
         keepalive: true // 탭 닫혀도 전송 시도
       });
+
+      console.log('📡 서버 응답 상태:', response.status);
+      const result = await response.json();
+      console.log('📄 서버 응답 내용:', result);
+      
+      if (response.ok) {
+        console.log('✅ CAPI 전송 성공!');
+      } else {
+        console.log('❌ CAPI 전송 실패:', result);
+      }
     } catch(e) {
-      console.warn('CAPI 전송 실패(무시 가능):', e);
+      console.error('🚨 CAPI 전송 에러:', e);
     }
   }
 
   // ====== 리드 전송 훅(버튼/폼에 연결) ======
   function trackLeadWithDedup() {
+    console.log('🚀 trackLeadWithDedup() 호출됨');
     const eventId = genEventId();
+    console.log('📋 생성된 eventId:', eventId);
+    
     // 브라우저 픽셀(Lead)
     if (typeof window.fbq === 'function') {
+      console.log('✅ fbq 함수 존재 - 브라우저 픽셀 전송');
       fbq('track', 'Lead', {}, { eventID: eventId });
+    } else {
+      console.log('❌ fbq 함수 없음');
     }
+    
     // 서버(CAPI) 동시 전송
+    console.log('🌐 서버 CAPI 전송 시작');
     sendLeadToServer(eventId);
   }
 
