@@ -264,6 +264,7 @@
       console.log('📡 서버 응답 상태:', response.status);
       const result = await response.json();
       console.log('📄 서버 응답 내용:', result);
+      console.log('🔍 상세 Meta 응답:', result.meta);
       
       if (response.ok) {
         console.log('✅ CAPI 전송 성공!');
