@@ -216,49 +216,74 @@
         }, 10000);
     </script>
     
-    <!-- 🅱️ 바디 맨 아래 붙여넣기: Lead(리드) 트래킹 유틸 + 버튼/폼 바인딩 -->
-    <script>
-    /**
-     * ✅ 어떻게 동작하나?
-     * - trackLead(eventId): Lead 이벤트 전송. eventId를 같이 보내면 CAPI와 중복제거에 유리.
-     * - genEventId(): 브라우저에서 간단한 event_id 생성 (CAPI 도입 시 서버로도 동일 값 전달하면 dedup 가능)
-     * - 아래 바인딩 예시는:
-     *   1) id="lineButton" 링크 클릭 시 Lead 전송
-     *   2) id="leadForm"  폼 제출 시   Lead 전송
-     *   → 네가 쓰는 실제 엘리먼트 id에 맞춰 바꿔도 됨.
-     */
+<script>
+  // ====== 유틸 ======
+  function genEventId() {
+    return 'cid-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
+  }
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  function getFbc() {
+    // URL에 fbclid가 있으면 _fbc 형식으로 생성
+    const params = new URLSearchParams(location.search);
+    const fbclid = params.get('fbclid');
+    if (fbclid) return `fb.1.${Date.now()}.${fbclid}`;
+    // 없으면 쿠키에서
+    return getCookie('_fbc') || '';
+  }
 
-    (function(){
-      function trackLead(eventId){
-        if (typeof window.fbq === 'function') {
-          if (eventId) {
-            fbq('track', 'Lead', {}, { eventID: eventId });
-          } else {
-            fbq('track', 'Lead');
-          }
-        }
-      }
+  async function sendLeadToServer(eventId) {
+    try {
+      const email = (document.querySelector('input[name="email"]') || {}).value || '';
+      const phone = (document.querySelector('input[name="phone"]') || {}).value || '';
 
-      function genEventId(){
-        return 'cid-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
-      }
+      const payload = {
+        eventId,
+        eventSourceUrl: location.href,
+        email,
+        phone,
+        fbp: getCookie('_fbp') || '',
+        fbc: getFbc(),
+        userAgent: navigator.userAgent
+      };
 
-      // 1) LINE 버튼(또는 콜투액션 버튼) 클릭 시 Lead
-      var lineBtn = document.getElementById('lineButton'); // ← 너의 버튼 id에 맞게 사용
-      if (lineBtn) {
-        lineBtn.addEventListener('click', function(){
-          trackLead(genEventId());
-        });
-      }
+      await fetch('/api/lead', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true // 탭 닫혀도 전송 시도
+      });
+    } catch(e) {
+      console.warn('CAPI 전송 실패(무시 가능):', e);
+    }
+  }
 
-      // 2) 폼 제출 시 Lead
-      var leadForm = document.getElementById('leadForm'); // ← 너의 폼 id에 맞게 사용
-      if (leadForm) {
-        leadForm.addEventListener('submit', function(){
-          trackLead(genEventId());
-        });
-      }
-    })();
-    </script>
+  // ====== 리드 전송 훅(버튼/폼에 연결) ======
+  function trackLeadWithDedup() {
+    const eventId = genEventId();
+    // 브라우저 픽셀(Lead)
+    if (typeof window.fbq === 'function') {
+      fbq('track', 'Lead', {}, { eventID: eventId });
+    }
+    // 서버(CAPI) 동시 전송
+    sendLeadToServer(eventId);
+  }
+
+  // 1) 버튼 클릭 시 Lead
+  const lineBtn = document.getElementById('lineButton');
+  if (lineBtn) {
+    lineBtn.addEventListener('click', trackLeadWithDedup);
+  }
+
+  // 2) 폼 제출 시 Lead
+  const leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', function () {
+      trackLeadWithDedup();
+    });
+  }
+</script>
 </body>
 </html>
