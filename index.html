@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Diet - คลินิกลดน้ำหนัก</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1234567890'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Prompt', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .instruction {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .step {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .line-button {
+            display: inline-block;
+            background: #00c851;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background 0.3s ease;
+        }
+        
+        .line-button:hover {
+            background: #007e33;
+        }
+        
+        .contact-info {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .hours {
+            font-weight: bold;
+            color: #e17055;
+        }
+        
+        .auto-redirect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .loading {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Korean Diet</div>
+        <div class="subtitle">คลินิกลดน้ำหนักแบบเกาหลี</div>
+        
+        <div class="instruction">
+            <h3>วิธีการรับคำปรึกษา</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                กรอกแบบฟอร์มให้ครบถ้วน
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                เพิ่ม LINE Official Account
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                ส่งข้อความพร้อมชื่อ-นามสกุลเต็ม
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                รับผลการประเมินจากแพทย์
+            </div>
+        </div>
+        
+        <a href="https://lin.ee/SgkGwde" class="line-button" id="lineButton">
+            เพิ่ม LINE Official Account
+        </a>
+        
+        <div class="contact-info">
+            <p><strong>LINE ID:</strong> @koreandiet</p>
+            <p class="hours">เวลาให้คำปรึกษา: จันทร์-ศุกร์ 9:00-18:00</p>
+            <p style="color: #e17055;">หยุดวันพฤหัสบดี เสาร์ อาทิตย์</p>
+        </div>
+    </div>
+    
+    <div class="auto-redirect" id="redirectModal">
+        <h3>กำลังเชื่อมต่อไปยัง LINE...</h3>
+        <div class="loading"></div>
+        <p>กรุณารอสักครู่</p>
+    </div>
+    
+    <script>
+        // Facebook Pixel Event Tracking
+        document.getElementById('lineButton').addEventListener('click', function() {
+            fbq('track', 'Contact');
+            
+            // Show redirect modal
+            document.getElementById('redirectModal').style.display = 'block';
+            
+            // Auto redirect after 2 seconds
+            setTimeout(function() {
+                window.open('https://lin.ee/SgkGwde', '_blank');
+                document.getElementById('redirectModal').style.display = 'none';
+            }, 2000);
+        });
+        
+        // Auto redirect after 10 seconds on page load
+        setTimeout(function() {
+            if (confirm('คุณต้องการไปยัง LINE เพื่อรับคำปรึกษาหรือไม่?')) {
+                fbq('track', 'Contact');
+                window.open('https://lin.ee/SgkGwde', '_blank');
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
