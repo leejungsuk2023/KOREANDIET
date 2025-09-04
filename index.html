@@ -175,19 +175,19 @@
             </div>
         </div>
         
-        <a href="https://lin.ee/SgkGwde" class="line-button" id="lineButton">
-            เพิ่ม LINE Official Account
+        <a href="https://forms.gle/TsfMJgKuJBsZzFsT8" class="line-button" id="lineButton">
+            กรอกแบบสอบถาม
         </a>
         
         <div class="contact-info">
-            <p><strong>LINE ID:</strong> @koreandiet</p>
+            <p><strong>หลังกรอกแบบสอบถาม:</strong> เชื่อมต่อคำปรึกษาเฉพาะบุคคล</p>
             <p class="hours">เวลาให้คำปรึกษา: จันทร์-ศุกร์ 9:00-18:00</p>
             <p style="color: #e17055;">หยุดวันพฤหัสบดี เสาร์ อาทิตย์</p>
         </div>
     </div>
     
     <div class="auto-redirect" id="redirectModal">
-        <h3>กำลังเชื่อมต่อไปยัง LINE...</h3>
+        <h3>กำลังเข้าสู่แบบสอบถาม...</h3>
         <div class="loading"></div>
         <p>กรุณารอสักครู่</p>
     </div>
@@ -202,16 +202,16 @@
             
             // Auto redirect after 2 seconds
             setTimeout(function() {
-                window.open('https://lin.ee/SgkGwde', '_blank');
+                window.open('https://forms.gle/TsfMJgKuJBsZzFsT8', '_blank');
                 document.getElementById('redirectModal').style.display = 'none';
             }, 2000);
         });
         
         // Auto redirect after 10 seconds on page load
         setTimeout(function() {
-            if (confirm('คุณต้องการไปยัง LINE เพื่อรับคำปรึกษาหรือไม่?')) {
+            if (confirm('คุณต้องการกรอกแบบสอบถามเพื่อรับคำปรึกษาเฉพาะบุคคลหรือไม่?')) {
                 fbq('track', 'Contact');
-                window.open('https://lin.ee/SgkGwde', '_blank');
+                window.open('https://forms.gle/TsfMJgKuJBsZzFsT8', '_blank');
             }
         }, 10000);
     </script>
