@@ -28,7 +28,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Prompt', Arial, sans-serif;
             line-height: 1.6;
@@ -37,30 +37,221 @@
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
-        
+
         .logo {
             font-size: 2.5rem;
             font-weight: bold;
             color: #667eea;
             margin-bottom: 20px;
+            text-align: center;
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             color: #666;
             margin-bottom: 30px;
+            text-align: center;
         }
-        
+
+        /* 설문 폼 스타일 */
+        .form-section {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .form-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            background: #f0f0f0;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .radio-option.selected {
+            background: #e8edff;
+            border-color: #667eea;
+        }
+
+        .bmi-display {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .bmi-display strong {
+            color: #2e7d32;
+            font-size: 1.5rem;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 결과 화면 스타일 */
+        .result-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .result-icon::after {
+            content: '✓';
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .result-box .diagnosis {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .line-info {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #ffc107;
+        }
+
+        .line-info a {
+            color: #00c851;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .reset-button {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .reset-button:hover {
+            background: #5a6268;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .instruction {
             background: #f8f9ff;
             padding: 25px;
@@ -68,12 +259,12 @@
             margin: 20px 0;
             border-left: 4px solid #667eea;
         }
-        
+
         .step {
             margin: 15px 0;
             font-size: 1.1rem;
         }
-        
+
         .step-number {
             display: inline-block;
             width: 30px;
@@ -85,7 +276,7 @@
             margin-right: 10px;
             font-weight: bold;
         }
-        
+
         .line-button {
             display: inline-block;
             background: #00c851;
@@ -98,11 +289,11 @@
             margin: 20px 0;
             transition: background 0.3s ease;
         }
-        
+
         .line-button:hover {
             background: #007e33;
         }
-        
+
         .contact-info {
             background: #fff3cd;
             padding: 20px;
@@ -110,12 +301,12 @@
             margin: 20px 0;
             border: 1px solid #ffeaa7;
         }
-        
+
         .hours {
             font-weight: bold;
             color: #e17055;
         }
-        
+
         .auto-redirect {
             position: fixed;
             top: 50%;
@@ -129,7 +320,7 @@
             display: none;
             z-index: 1000;
         }
-        
+
         .loading {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #667eea;
@@ -139,50 +330,187 @@
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .form-section {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">Korean Diet</div>
-        <div class="subtitle">คลินิกลดน้ำหนักแบบเกาหลี</div>
-        
-        <div class="instruction">
-            <h3>วิธีการรับคำปรึกษา</h3>
-            
-            <div class="step">
-                <span class="step-number">1</span>
-                กรอกแบบฟอร์มให้ครบถ้วน
-            </div>
-            
-            <div class="step">
-                <span class="step-number">2</span>
-                เพิ่ม LINE Official Account
-            </div>
-            
-            <div class="step">
-                <span class="step-number">3</span>
-                ส่งข้อความพร้อมชื่อ-นามสกุลเต็ม
-            </div>
-            
-            <div class="step">
-                <span class="step-number">4</span>
-                รับผลการประเมินจากแพทย์
-            </div>
+        <div class="subtitle">แบบประเมินสุขภาพเพื่อการลดน้ำหนัก</div>
+
+        <!-- 설문 폼 -->
+        <div id="survey-container">
+            <form id="diagnosis-form">
+                <!-- ส่วนที่ 1: ข้อมูลส่วนตัว -->
+                <div class="form-section">
+                    <h3>ข้อมูลส่วนตัว</h3>
+
+                    <div class="form-group">
+                        <label>ชื่อ - นามสกุล ภาษาอังกฤษ <span style="color: red;">*</span></label>
+                        <input type="text" name="fullName" id="fullName" required placeholder="John Smith">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ไลน์ไอดี <span style="color: red;">*</span></label>
+                        <input type="text" name="lineId" id="lineId" required placeholder="@yourlineid">
+                    </div>
+
+                    <div class="form-group">
+                        <label>เบอร์โทรศัพท์ <span style="color: red;">*</span></label>
+                        <input type="tel" name="phoneNumber" id="phoneNumber" required
+                               pattern="\d{8,15}"
+                               title="กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง (8-15 หลัก ตัวเลขเท่านั้น)"
+                               placeholder="0812345678">
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            ตัวอย่าง: 0812345678 (ตัวเลข 8-15 หลัก ไม่ต้องใส่ขีด)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 2: ข้อมูลสุขภาพ -->
+                <div class="form-section">
+                    <h3>ข้อมูลสุขภาพ</h3>
+
+                    <div class="form-group">
+                        <label>น้ำหนักปัจจุบัน (kg) <span style="color: red;">*</span></label>
+                        <input type="number" name="currentWeight" id="currentWeight" required step="0.1" min="0" placeholder="60.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ส่วนสูง (cm) <span style="color: red;">*</span></label>
+                        <input type="number" name="height" id="height" required step="0.1" min="0" placeholder="165">
+                    </div>
+
+                    <div id="bmi-display" class="bmi-display hidden">
+                        <p>BMI ของคุณ: <strong id="bmi-value">-</strong></p>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 3: คำถามสำคัญสำหรับการวินิจฉัย -->
+                <div class="form-section">
+                    <h3>คำถามสำคัญ</h3>
+
+                    <!-- คำถาม 1 -->
+                    <div class="form-group">
+                        <label>1. คุณเคยทานยาหรืออาหารเสริมลดน้ำหนักหรือไม่? <span style="color: red;">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="past_med_exp" value="has_experience" required>
+                                <span>เคย</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="past_med_exp" value="no_experience">
+                                <span>ไม่เคย</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- คำถาม 2 -->
+                    <div class="form-group">
+                        <label>2. ระดับความไวต่อคาเฟอีนหลังดื่มกาแฟ <span style="color: red;">*</span></label>
+                        <p style="font-size: 0.9rem; color: #666;">(เช่น นอนไม่หลับ หัวใจเต้นเร็ว)</p>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="caffeine_sensitivity" value="sensitive" required>
+                                <span>ไว / มีอาการ</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="caffeine_sensitivity" value="not_sensitive">
+                                <span>ไม่ไว / ไม่มีอาการ</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- คำถาม 3 -->
+                    <div class="form-group">
+                        <label>3. โรคประจำตัว หรือ โรคที่เป็นอยู่ในปัจจุบัน <span style="color: red;">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="has_condition" value="has_condition" required>
+                                <span>มี</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="has_condition" value="no_condition">
+                                <span>ไม่มี</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 4: ข้อมูลเพิ่มเติม -->
+                <div class="form-section">
+                    <h3>ข้อมูลเพิ่มเติม</h3>
+
+                    <div class="form-group">
+                        <label>อาการหรือความรู้สึกไม่สบายเมื่อทานยา, ผลข้างเคียงเมื่อใช้ยาลดน้ำหนัก</label>
+                        <p style="font-size: 0.9rem; color: #666;">(ถ้ามี กรุณาระบุ)</p>
+                        <textarea name="sideEffects" id="sideEffects" rows="4" placeholder="เช่น คลื่นไส้ วิงเวียนศีรษะ ฯลฯ"></textarea>
+                    </div>
+                </div>
+
+                <!-- ส่วนที่ 5: ความยินยอมตามกฎหมาย PDPA -->
+                <div class="form-section" style="background: #fff3cd; border-left-color: #ffc107;">
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start; cursor: pointer;">
+                            <input type="checkbox" name="consent" id="consent" required
+                                   style="width: 20px; height: 20px; margin-right: 10px; margin-top: 2px; cursor: pointer; flex-shrink: 0;">
+                            <span style="flex: 1;">
+                                <span style="color: red; font-weight: bold;">[จำเป็น]</span>
+                                ฉันยินยอมให้เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของฉัน (ชื่อ-นามสกุล เบอร์โทรศัพท์ ไลน์ไอดี)
+                                เพื่อวัตถุประสงค์ในการให้คำปรึกษาด้านสุขภาพและการวิเคราะห์การตลาดผ่าน Meta (Facebook) และ Google
+                                ตามนโยบายความเป็นส่วนตัวของบริษัท
+                            </span>
+                        </label>
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 10px; margin-left: 30px;">
+                            หมายเหตุ: ข้อมูลของคุณจะถูกส่งไปยัง Meta (Facebook) และ Google เพื่อวัตถุประสงค์ในการวัดผลโฆษณาและปรับปรุงประสบการณ์ของผู้ใช้
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ปุ่มส่งแบบฟอร์ม -->
+                <button type="submit" class="submit-button">
+                    ยืนยันเพื่อดูผลการประเมิน
+                </button>
+            </form>
         </div>
-        
-        <a href="https://forms.gle/TsfMJgKuJBsZzFsT8" class="line-button" id="lineButton">
-            กรอกแบบสอบถาม
-        </a>
-        
-        <div class="contact-info">
-            <p><strong>หลังกรอกแบบสอบถาม:</strong> เชื่อมต่อคำปรึกษาเฉพาะบุคคล</p>
-            <p class="hours">เวลาให้คำปรึกษา: จันทร์-ศุกร์ 9:00-18:00</p>
-            <p style="color: #e17055;">หยุดวันพฤหัสบดี เสาร์ อาทิตย์</p>
+
+        <!-- 결과 화면 -->
+        <div id="result-container" class="result-container hidden">
+            <div class="result-icon"></div>
+            <h2 class="result-title">ผลการประเมินของคุณ</h2>
+
+            <div class="result-box">
+                <p style="font-size: 1.2rem;">ผลลัพธ์: แนะนำให้ใช้</p>
+                <div class="diagnosis" id="diagnosis-result">-</div>
+            </div>
+
+            <div class="line-info">
+                <p><strong>รายละเอียดจะถูกส่งทางไลน์</strong></p>
+                <p><a href="https://line.me/ti/p/@koreandiet" target="_blank" rel="noopener noreferrer">@koreandiet</a></p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">เวลาให้คำปรึกษา: จันทร์-ศุกร์ 9:00-18:00</p>
+                <p style="font-size: 0.9rem; color: #e17055;">หยุดวันพฤหัสบดี เสาร์ อาทิตย์</p>
+            </div>
+
+            <button class="reset-button" onclick="resetForm()">กรอกแบบสอบถามใหม่</button>
         </div>
     </div>
     
@@ -193,27 +521,53 @@
     </div>
     
     <script>
-        // Facebook Pixel Event Tracking
-        document.getElementById('lineButton').addEventListener('click', function() {
-            fbq('track', 'Contact');
-            
-            // Show redirect modal
-            document.getElementById('redirectModal').style.display = 'block';
-            
-            // Auto redirect after 2 seconds
-            setTimeout(function() {
-                window.open('https://forms.gle/TsfMJgKuJBsZzFsT8', '_blank');
-                document.getElementById('redirectModal').style.display = 'none';
-            }, 2000);
-        });
-        
-        // Auto redirect after 10 seconds on page load
-        setTimeout(function() {
-            if (confirm('คุณต้องการกรอกแบบสอบถามเพื่อรับคำปรึกษาเฉพาะบุคคลหรือไม่?')) {
-                fbq('track', 'Contact');
-                window.open('https://forms.gle/TsfMJgKuJBsZzFsT8', '_blank');
+        // ====== BMI 계산 및 실시간 표시 ======
+        const weightInput = document.getElementById('currentWeight');
+        const heightInput = document.getElementById('height');
+        const bmiDisplay = document.getElementById('bmi-display');
+        const bmiValue = document.getElementById('bmi-value');
+
+        function calculateBMI() {
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value);
+
+            if (weight > 0 && height > 0) {
+                const heightInMeters = height / 100;
+                const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+                bmiValue.textContent = bmi;
+                bmiDisplay.classList.remove('hidden');
+            } else {
+                bmiDisplay.classList.add('hidden');
             }
-        }, 10000);
+        }
+
+        weightInput.addEventListener('input', calculateBMI);
+        heightInput.addEventListener('input', calculateBMI);
+
+        // ====== 라디오 버튼 시각적 효과 ======
+        document.querySelectorAll('.radio-option input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 같은 name의 모든 라디오 옵션에서 selected 클래스 제거
+                document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                // 선택된 옵션에만 selected 클래스 추가
+                this.closest('.radio-option').classList.add('selected');
+            });
+        });
+
+        // ====== 폼 초기화 함수 ======
+        function resetForm() {
+            document.getElementById('diagnosis-form').reset();
+            document.getElementById('survey-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            bmiDisplay.classList.add('hidden');
+
+            // 모든 라디오 옵션에서 selected 클래스 제거
+            document.querySelectorAll('.radio-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
     </script>
     
 <script>
@@ -222,7 +576,7 @@
     return 'cid-' + Date.now() + '-' + Math.random().toString(36).slice(2,10);
   }
   function getCookie(name) {
-    const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
     return m ? decodeURIComponent(m[1]) : '';
   }
   function getFbc() {
@@ -234,24 +588,29 @@
     return getCookie('_fbc') || '';
   }
 
-  async function sendLeadToServer(eventId) {
+  async function sendLeadToServer(eventId, customerInfo) {
     try {
       console.log('📨 sendLeadToServer() 시작, eventId:', eventId);
-      
-      const email = (document.querySelector('input[name="email"]') || {}).value || '';
-      const phone = (document.querySelector('input[name="phone"]') || {}).value || '';
+      console.log('👤 고객 정보:', customerInfo);
+
+      // customerInfo에서 고객 정보 추출 (없으면 빈 문자열)
+      const fullName = customerInfo?.fullName || '';
+      const phone = customerInfo?.phone || '';
+      const lineId = customerInfo?.lineId || '';
 
       const payload = {
         eventId,
         eventSourceUrl: location.href,
-        email,
-        phone,
+        email: '', // 이메일은 폼에 없으므로 빈 값
+        phone: phone,
+        fullName: fullName,
+        lineId: lineId,
         fbp: getCookie('_fbp') || '',
         fbc: getFbc(),
         userAgent: navigator.userAgent
       };
 
-      console.log('📋 전송할 payload:', payload);
+      console.log('📋 전송할 payload (고객 정보 포함):', payload);
       console.log('🌐 /api/lead 요청 시작...');
 
       const response = await fetch('/api/lead', {
@@ -265,9 +624,9 @@
       const result = await response.json();
       console.log('📄 서버 응답 내용:', result);
       console.log('🔍 상세 Meta 응답:', result.meta);
-      
+
       if (response.ok) {
-        console.log('✅ CAPI 전송 성공!');
+        console.log('✅ CAPI 전송 성공! (고객 정보 포함)');
       } else {
         console.log('❌ CAPI 전송 실패:', result);
       }
@@ -277,11 +636,13 @@
   }
 
   // ====== 리드 전송 훅(버튼/폼에 연결) ======
-  function trackLeadWithDedup() {
+  function trackLeadWithDedup(customerInfo) {
     console.log('🚀 trackLeadWithDedup() 호출됨');
+    console.log('👤 전달받은 고객 정보:', customerInfo);
+
     const eventId = genEventId();
     console.log('📋 생성된 eventId:', eventId);
-    
+
     // 브라우저 픽셀(Lead)
     if (typeof window.fbq === 'function') {
       console.log('✅ fbq 함수 존재 - 브라우저 픽셀 전송');
@@ -289,23 +650,140 @@
     } else {
       console.log('❌ fbq 함수 없음');
     }
-    
-    // 서버(CAPI) 동시 전송
-    console.log('🌐 서버 CAPI 전송 시작');
-    sendLeadToServer(eventId);
+
+    // 서버(CAPI) 동시 전송 (고객 정보 포함)
+    console.log('🌐 서버 CAPI 전송 시작 (고객 정보 포함)');
+    sendLeadToServer(eventId, customerInfo);
   }
 
-  // 1) 버튼 클릭 시 Lead
-  const lineBtn = document.getElementById('lineButton');
-  if (lineBtn) {
-    lineBtn.addEventListener('click', trackLeadWithDedup);
-  }
+  // ====== 핵심: 진단 폼 제출 처리 (황금 함수) ======
+  const diagnosisForm = document.getElementById('diagnosis-form');
+  let isSubmitting = false; // 중복 제출 방지 플래그
 
-  // 2) 폼 제출 시 Lead
-  const leadForm = document.getElementById('leadForm');
-  if (leadForm) {
-    leadForm.addEventListener('submit', function () {
-      trackLeadWithDedup();
+  if (diagnosisForm) {
+    diagnosisForm.addEventListener('submit', async function(e) {
+      e.preventDefault(); // 폼 기본 제출 방지
+
+      // 중복 제출 방지
+      if (isSubmitting) {
+        console.log('⚠️ 이미 제출 중입니다. 잠시만 기다려주세요.');
+        return;
+      }
+
+      isSubmitting = true;
+      const submitButton = diagnosisForm.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.textContent;
+
+      // 버튼 비활성화 및 로딩 표시
+      submitButton.disabled = true;
+      submitButton.textContent = 'กำลังประมวลผล...'; // "처리 중..."
+      submitButton.style.opacity = '0.6';
+      submitButton.style.cursor = 'not-allowed';
+
+      console.log('🚀 폼 제출 시작');
+
+      // 1. 폼에서 모든 데이터 읽기
+      const formData = new FormData(diagnosisForm);
+
+      const fullName = formData.get('fullName');
+      const lineId = formData.get('lineId');
+      const phoneNumber = formData.get('phoneNumber');
+      const currentWeight = formData.get('currentWeight');
+      const height = formData.get('height');
+      const past_med_exp = formData.get('past_med_exp');
+      const caffeine_sensitivity = formData.get('caffeine_sensitivity');
+      const has_condition = formData.get('has_condition');
+      const sideEffects = formData.get('sideEffects');
+
+      // 2. BMI 계산
+      const weight = parseFloat(currentWeight);
+      const heightM = parseFloat(height) / 100;
+      const bmi = (weight / (heightM * heightM)).toFixed(2);
+
+      // 3. 핵심 진단 로직 실행 (엄격한 규칙 적용)
+      let diagnosisResult = "1 단계"; // 기본값
+
+      // 규칙 1: 안전 우선 (카페인 민감 OR 기저질환이 있는 경우)
+      if (caffeine_sensitivity === "sensitive" || has_condition === "has_condition") {
+        diagnosisResult = "1 단계";
+      }
+      // 규칙 2: 규칙 1에 해당하지 않는 경우
+      else {
+        if (past_med_exp === "has_experience") {
+          diagnosisResult = "2 단계";
+        } else { // past_med_exp === "no_experience"
+          diagnosisResult = "1 단계";
+        }
+      }
+
+      console.log('✅ 진단 결과:', diagnosisResult);
+
+      // 4. 데이터 전송 (병렬 처리)
+      try {
+        // 4-A: 구글 시트로 데이터 전송
+        const consent = formData.get('consent'); // 동의 체크박스 값 ('on' 또는 null)
+
+        const sheetPayload = {
+          fullName: fullName,
+          lineId: lineId,
+          phoneNumber: phoneNumber,
+          currentWeight: currentWeight,
+          height: height,
+          bmi: bmi,
+          past_med_exp: past_med_exp,
+          caffeine_sensitivity: caffeine_sensitivity,
+          has_condition: has_condition,
+          sideEffects: sideEffects || '',
+          diagnosisResult: diagnosisResult,
+          consent: consent ? 'yes' : 'no', // 동의 여부 기록 (법적 보험)
+          submittedAt: new Date().toISOString()
+        };
+
+        console.log('📊 구글 시트 전송 데이터:', sheetPayload);
+
+        // 비동기로 구글 시트에 저장 (결과를 기다리지 않음)
+        fetch('/api/saveToSheet', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(sheetPayload),
+          keepalive: true
+        }).then(response => response.json())
+          .then(result => {
+            console.log('✅ 구글 시트 저장 성공:', result);
+          })
+          .catch(error => {
+            console.error('❌ 구글 시트 저장 실패:', error);
+          });
+
+        // 4-B: 메타 전환 추적 실행 (고객 정보 포함)
+        const customerInfo = {
+          fullName: fullName,
+          phone: phoneNumber,
+          lineId: lineId
+        };
+
+        console.log('🎯 메타 전환(Pixel + CAPI) 추적 실행 (고객 정보 포함)');
+        trackLeadWithDedup(customerInfo);
+
+        // 5. 사용자에게 결과 화면 보여주기
+        document.getElementById('diagnosis-result').textContent = diagnosisResult;
+        document.getElementById('survey-container').classList.add('hidden');
+        document.getElementById('result-container').classList.remove('hidden');
+
+        // 페이지 상단으로 스크롤
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (error) {
+        console.error('🚨 제출 중 에러 발생:', error);
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+
+        // 에러 발생 시 버튼 다시 활성화
+        isSubmitting = false;
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.style.opacity = '1';
+        submitButton.style.cursor = 'pointer';
+      }
     });
   }
 </script>
