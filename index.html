@@ -384,6 +384,15 @@
                             ตัวอย่าง: 0812345678 (ตัวเลข 8-15 หลัก ไม่ต้องใส่ขีด)
                         </p>
                     </div>
+
+                    <div class="form-group">
+                        <label>อีเมล (ถ้ามี)</label>
+                        <input type="email" name="email" id="email"
+                               placeholder="example@email.com">
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            ไม่บังคับ แต่จะช่วยให้เราติดต่อคุณได้ดีขึ้น
+                        </p>
+                    </div>
                 </div>
 
                 <!-- ส่วนที่ 2: ข้อมูลสุขภาพ -->
@@ -647,24 +656,27 @@
       console.log('📨 sendLeadToServer() 시작, eventId:', eventId);
       console.log('👤 고객 정보:', customerInfo);
 
-      // customerInfo에서 고객 정보 추출 (없으면 빈 문자열)
-      const fullName = customerInfo?.fullName || '';
+      // customerInfo에서 개선된 고객 정보 추출
+      const email = customerInfo?.email || '';
       const phone = customerInfo?.phone || '';
+      const firstName = customerInfo?.firstName || '';
+      const lastName = customerInfo?.lastName || '';
       const lineId = customerInfo?.lineId || '';
 
       const payload = {
         eventId,
         eventSourceUrl: location.href,
-        email: '', // 이메일은 폼에 없으므로 빈 값
-        phone: phone,
-        fullName: fullName,
+        email: email, // 이메일 추가
+        phone: phone, // 태국 국가코드 포함
+        firstName: firstName, // 이름 (분리)
+        lastName: lastName, // 성 (분리)
         lineId: lineId,
         fbp: getCookie('_fbp') || '',
         fbc: getFbc(),
         userAgent: navigator.userAgent
       };
 
-      console.log('📋 전송할 payload (고객 정보 포함):', payload);
+      console.log('📋 전송할 payload (개선된 매칭 정보 포함):', payload);
       console.log('🌐 /api/lead 요청 시작...');
 
       const response = await fetch('/api/lead', {
@@ -742,12 +754,24 @@
       const fullName = formData.get('fullName');
       const lineId = formData.get('lineId');
       const phoneNumber = formData.get('phoneNumber');
+      const email = formData.get('email'); // 이메일 추가
       const currentWeight = formData.get('currentWeight');
       const height = formData.get('height');
       const past_med_exp = formData.get('past_med_exp');
       const caffeine_sensitivity = formData.get('caffeine_sensitivity');
       const has_condition = formData.get('has_condition');
       const sideEffects = formData.get('sideEffects');
+
+      // 1-1. 이름 분리 (성 / 이름)
+      // 공백으로 분리, 없으면 전체를 성(ln)에 넣음
+      const nameParts = fullName.trim().split(/\s+/);
+      const firstName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''; // 이름
+      const lastName = nameParts[0]; // 성 (또는 전체 이름)
+
+      // 1-2. 전화번호에 태국 국가코드 추가
+      // 0으로 시작하면 제거하고 66 추가
+      let phoneWithCountryCode = phoneNumber.replace(/^0/, ''); // 맨 앞 0 제거
+      phoneWithCountryCode = '66' + phoneWithCountryCode; // 태국 국가코드 추가
 
       // 2. BMI 계산
       const weight = parseFloat(currentWeight);
@@ -809,14 +833,18 @@
             console.error('❌ 구글 시트 저장 실패:', error);
           });
 
-        // 4-B: 메타 전환 추적 실행 (고객 정보 포함)
+        // 4-B: 메타 전환 추적 실행 (고객 정보 포함 - 개선됨)
         const customerInfo = {
-          fullName: fullName,
-          phone: phoneNumber,
+          email: email || '', // 이메일 (선택)
+          phone: phoneWithCountryCode, // 태국 국가코드 포함 전화번호
+          firstName: firstName, // 이름 (분리됨)
+          lastName: lastName, // 성 (분리됨)
           lineId: lineId
         };
 
-        console.log('🎯 메타 전환(Pixel + CAPI) 추적 실행 (고객 정보 포함)');
+        console.log('🎯 메타 전환(Pixel + CAPI) 추적 실행 (개선된 매칭 정보 포함)');
+        console.log('📱 전화번호 (국가코드 포함):', phoneWithCountryCode);
+        console.log('👤 이름 분리 - 성:', lastName, '/ 이름:', firstName);
         trackLeadWithDedup(customerInfo);
 
         // 5. 사용자에게 결과 화면 보여주기

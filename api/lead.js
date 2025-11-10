@@ -40,26 +40,37 @@ module.exports = async (req, res) => {
       return res.status(500).json({ ok:false, error: 'META_ACCESS_TOKEN is missing' });
     }
 
-    // [수정됨] fullName, lineId를 추가로 받습니다.
+    // [개선됨] 이메일, 전화번호(국가코드 포함), 성/이름 분리
     const {
       eventId, eventSourceUrl,
-      email, phone, fullName, lineId, // lineId는 CAPI 표준 필드가 아니라 사용 X
+      email, phone, firstName, lastName, lineId,
       fbp, fbc, userAgent
     } = await readJson(req);
 
-    // [수정됨] user_data에 이름(fn)을 추가합니다.
-    const userData = {
-      em: email ? [sha256Lower(email)] : undefined,
-      ph: phone ? [sha256Phone(phone)] : undefined,
+    console.log('📥 받은 고객 정보:', { email, phone, firstName, lastName });
 
-      // 이름(fullName)을 받아서 fn (First Name) 필드에 해싱하여 추가
-      // 참고: 메타는 성(ln), 이름(fn)을 구분하지만, 보통 fn만 보내도 매칭률 향상에 도움됨
-      fn: fullName ? [sha256Name(fullName)] : undefined,
+    // [개선됨] user_data에 이메일, 성/이름 분리, 국가코드 포함 전화번호
+    const userData = {
+      em: email ? [sha256Lower(email)] : undefined, // 이메일 해싱
+      ph: phone ? [sha256Phone(phone)] : undefined, // 전화번호 해싱 (국가코드 포함)
+
+      // 이름/성 분리 (매칭률 향상)
+      fn: firstName ? [sha256Name(firstName)] : undefined, // 이름
+      ln: lastName ? [sha256Name(lastName)] : undefined, // 성
 
       fbp: fbp || undefined,
       fbc: fbc || undefined,
       client_user_agent: userAgent || undefined,
     };
+
+    console.log('🔐 해싱 전 매칭 파라미터:', {
+      hasEmail: !!email,
+      hasPhone: !!phone,
+      hasFirstName: !!firstName,
+      hasLastName: !!lastName,
+      hasFbp: !!fbp,
+      hasFbc: !!fbc
+    });
 
     // 빈 값(undefined)은 전송 페이로드에서 아예 제거
     Object.keys(userData).forEach(key => {
