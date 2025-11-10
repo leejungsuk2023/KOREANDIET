@@ -1,0 +1,17 @@
+{
+  "name": "koreandiet",
+  "version": "1.0.0",
+  "description": "Korean Diet survey system with diagnosis and conversion tracking",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step needed'"
+  },
+  "dependencies": {
+    "googleapis": "^128.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "private": true
+}
