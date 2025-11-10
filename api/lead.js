@@ -40,11 +40,12 @@ module.exports = async (req, res) => {
       return res.status(500).json({ ok:false, error: 'META_ACCESS_TOKEN is missing' });
     }
 
-    // [개선됨] 이메일, 전화번호(국가코드 포함), 성/이름 분리
+    // [개선됨] 이메일, 전화번호(국가코드 포함), 성/이름 분리, value/currency 추가
     const {
       eventId, eventSourceUrl,
       email, phone, firstName, lastName, lineId,
-      fbp, fbc, userAgent
+      fbp, fbc, userAgent,
+      value, currency
     } = await readJson(req);
 
     console.log('📥 받은 고객 정보:', { email, phone, firstName, lastName });
@@ -87,6 +88,10 @@ module.exports = async (req, res) => {
         action_source: 'website',
         event_source_url: eventSourceUrl || 'https://koreandiet.store/',
         user_data: userData, // 수정된 userData 객체 사용
+        custom_data: {
+          value: value || 149000, // 리드당 가치 (기본값 149000원)
+          currency: currency || 'KRW' // 통화 코드 (기본값 KRW)
+        },
         ...(TEST_EVENT_CODE ? { test_event_code: TEST_EVENT_CODE } : {})
       }]
     };

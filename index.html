@@ -674,7 +674,9 @@
         lineId: lineId,
         fbp: getCookie('_fbp') || '',
         fbc: getFbc(),
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
+        value: 149000, // 리드당 가치 (원화)
+        currency: 'KRW' // 통화 코드
       };
 
       console.log('📋 전송할 payload (개선된 매칭 정보 포함):', payload);
@@ -713,7 +715,7 @@
     // 브라우저 픽셀(Lead)
     if (typeof window.fbq === 'function') {
       console.log('✅ fbq 함수 존재 - 브라우저 픽셀 전송');
-      fbq('track', 'Lead', {}, { eventID: eventId });
+      fbq('track', 'Lead', { value: 149000, currency: 'KRW' }, { eventID: eventId });
     } else {
       console.log('❌ fbq 함수 없음');
     }
