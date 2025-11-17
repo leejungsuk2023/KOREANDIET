@@ -829,20 +829,14 @@
       const heightM = parseFloat(height) / 100;
       const bmi = (weight / (heightM * heightM)).toFixed(2);
 
-      // 3. 핵심 진단 로직 실행 (엄격한 규칙 적용)
+      // 3. 핵심 진단 로직 실행
       let diagnosisResult = "1 단계"; // 기본값
 
-      // 규칙 1: 안전 우선 (카페인 민감 OR 기저질환이 있는 경우)
-      if (caffeine_sensitivity === "sensitive" || has_condition === "has_condition") {
+      // 규칙: 약물 경험이 있고, 부작용이 없으면 2단계
+      if (past_med_exp === "has_experience" && (!sideEffects || sideEffects.trim() === "")) {
+        diagnosisResult = "2 단계";
+      } else {
         diagnosisResult = "1 단계";
-      }
-      // 규칙 2: 규칙 1에 해당하지 않는 경우
-      else {
-        if (past_med_exp === "has_experience") {
-          diagnosisResult = "2 단계";
-        } else { // past_med_exp === "no_experience"
-          diagnosisResult = "1 단계";
-        }
       }
 
       console.log('✅ 진단 결과:', diagnosisResult);
