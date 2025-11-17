@@ -59,6 +59,7 @@ module.exports = async (req, res) => {
       past_med_exp,
       caffeine_sensitivity,
       has_condition,
+      is_pregnant,
       sideEffects,
       diagnosisResult,
       bmi,
@@ -80,6 +81,10 @@ module.exports = async (req, res) => {
         has_condition: {
           'has_condition': 'มี',
           'no_condition': 'ไม่มี'
+        },
+        is_pregnant: {
+          'yes': 'ใช่',
+          'no': 'ไม่ใช่'
         }
       };
       return translations[field]?.[value] || value;
@@ -97,6 +102,7 @@ module.exports = async (req, res) => {
       translateValue('past_med_exp', past_med_exp),
       translateValue('caffeine_sensitivity', caffeine_sensitivity),
       translateValue('has_condition', has_condition),
+      translateValue('is_pregnant', is_pregnant), // 임신여부 추가
       sideEffects || '',
       diagnosisResult || '',
       consent || 'no' // 동의 여부 기록 (법적 보험)
@@ -107,7 +113,7 @@ module.exports = async (req, res) => {
     // 시트에 데이터 추가
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A:M', // A부터 M까지 13개 컬럼 (동의 여부 추가)
+      range: 'Sheet1!A:N', // A부터 N까지 14개 컬럼 (임신여부 추가)
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [rowData],

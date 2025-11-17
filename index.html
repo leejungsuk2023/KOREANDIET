@@ -496,6 +496,21 @@
                             </label>
                         </div>
                     </div>
+
+                    <!-- คำถาม 4: 임신여부 -->
+                    <div class="form-group">
+                        <label>4. คุณกำลังตั้งครรภ์หรือไม่? <span style="color: red;">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="is_pregnant" value="yes" required>
+                                <span>ใช่ (네)</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="is_pregnant" value="no">
+                                <span>ไม่ใช่ (아니오)</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ส่วนที่ 4: ข้อมูลเพิ่มเติม -->
@@ -795,6 +810,7 @@
       const past_med_exp = formData.get('past_med_exp');
       const caffeine_sensitivity = formData.get('caffeine_sensitivity');
       const has_condition = formData.get('has_condition');
+      const is_pregnant = formData.get('is_pregnant'); // 임신여부 추가
       const sideEffects = formData.get('sideEffects');
 
       // 1-1. 이름 분리 (성 / 이름)
@@ -846,6 +862,7 @@
           past_med_exp: past_med_exp,
           caffeine_sensitivity: caffeine_sensitivity,
           has_condition: has_condition,
+          is_pregnant: is_pregnant, // 임신여부 추가
           sideEffects: sideEffects || '',
           diagnosisResult: diagnosisResult,
           consent: consent ? 'yes' : 'no', // 동의 여부 기록 (법적 보험)
