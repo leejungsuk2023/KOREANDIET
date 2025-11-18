@@ -829,14 +829,30 @@
       const heightM = parseFloat(height) / 100;
       const bmi = (weight / (heightM * heightM)).toFixed(2);
 
-      // 3. 핵심 진단 로직 실행
+      // 3. 핵심 진단 로직 실행 (의사 통화 내용 기준)
       let diagnosisResult = "1 단계"; // 기본값
 
-      // 규칙: 약물 경험이 있고, 부작용이 없으면 2단계
-      if (past_med_exp === "has_experience" && (!sideEffects || sideEffects.trim() === "")) {
-        diagnosisResult = "2 단계";
-      } else {
+      // 규칙 1: 약물 경험이 없으면 무조건 1단계
+      if (past_med_exp === "no_experience") {
         diagnosisResult = "1 단계";
+      }
+      // 규칙 2: 약물 경험이 있는 경우 → 부작용 + 카페인 조합으로 판단
+      else if (past_med_exp === "has_experience") {
+        // 부작용 체크: 실제로 입력된 내용이 있는지 확인
+        const normalizedSideEffects = (sideEffects || "").trim();
+        const hasSideEffect = normalizedSideEffects !== "" && normalizedSideEffects !== "없음";
+
+        // 카페인 민감도 체크
+        const hasCaffeineIssue = (caffeine_sensitivity === "sensitive");
+
+        // 부작용 O + 카페인 민감 O → 둘 다 문제 있음 → 1단계
+        if (hasSideEffect && hasCaffeineIssue) {
+          diagnosisResult = "1 단계";
+        }
+        // 그 외 (0개 또는 1개만 문제) → 2단계
+        else {
+          diagnosisResult = "2 단계";
+        }
       }
 
       console.log('✅ 진단 결과:', diagnosisResult);
